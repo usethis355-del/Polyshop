@@ -1,74 +1,249 @@
-<header>
-    <h1>Polyshop</h1>
+<!DOCTYPE html>
 
-    <nav>
-        <a href="#products">Produktet</a>
-        <a href="#services">Shërbimet</a>
-        <a href="#deposit">Depozito Fonde</a>
-    </nav>
+<html lang="sq">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polyshop</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 8%;
+    background:#111827;
+    position:sticky;
+    top:0;
+}
+
+.logo{
+    font-size:32px;
+    font-weight:700;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-left:25px;
+}
+
+.hero{
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    background:linear-gradient(135deg,#1e293b,#0f172a);
+}
+
+.hero h1{
+    font-size:60px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    max-width:700px;
+    font-size:20px;
+    color:#cbd5e1;
+}
+
+.buttons{
+    margin-top:30px;
+}
+
+.btn{
+    display:inline-block;
+    padding:14px 28px;
+    border-radius:10px;
+    text-decoration:none;
+    margin:8px;
+    font-weight:600;
+}
+
+.primary{
+    background:#2563eb;
+    color:white;
+}
+
+.secondary{
+    background:#1f2937;
+    color:white;
+}
+
+.section{
+    padding:80px 8%;
+}
+
+.section h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:40px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:16px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#cbd5e1;
+}
+
+.deposit{
+    text-align:center;
+    background:#2563eb;
+    padding:80px 20px;
+}
+
+.deposit h2{
+    margin-bottom:15px;
+    font-size:42px;
+}
+
+.deposit p{
+    max-width:700px;
+    margin:auto;
+    margin-bottom:25px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    background:#111827;
+    color:#94a3b8;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+    <div class="logo">Polyshop</div>
+
+```
+<nav>
+    <a href="#produkte">Produkte</a>
+    <a href="#sherbime">Shërbime</a>
+    <a href="#depozita">Depozita</a>
+</nav>
+```
+
 </header>
 
 <section class="hero">
-    <h1>Mirë se vini në Polyshop</h1>
-    <p>Blini produkte fizike, shërbime online dhe shumë më tepër në një vend të vetëm.</p>
-    <a href="#deposit" class="btn">Depozito Fonde</a>
+    <h1>Tregu Modern Shqiptar</h1>
+
+```
+<p>
+    Bli produkte fizike, shërbime online dhe menaxho fondet e tua
+    në një platformë të vetme.
+</p>
+
+<div class="buttons">
+    <a href="#depozita" class="btn primary">Depozito Fonde</a>
+    <a href="#produkte" class="btn secondary">Shiko Produktet</a>
+</div>
+```
+
 </section>
 
-<section class="section" id="products">
-    <h2>Produktet Kryesore</h2>
-    <br>
+<section class="section" id="produkte">
+    <h2>Produktet Popullore</h2>
 
-    <div class="products">
-        <div class="card">
-            <h3>Elektronikë</h3>
-            <p>Telefona, laptopë, aksesorë gaming dhe më shumë.</p>
-        </div>
-
-        <div class="card">
-            <h3>Modë</h3>
-            <p>Rroba, këpucë dhe aksesorë premium.</p>
-        </div>
-
-        <div class="card">
-            <h3>Shtëpi & Jetesë</h3>
-            <p>Mobilie, dekorime dhe pajisje për shtëpinë.</p>
-        </div>
+```
+<div class="grid">
+    <div class="card">
+        <h3>📱 Elektronikë</h3>
+        <p>Telefona, laptopë dhe aksesorë teknologjikë.</p>
     </div>
+
+    <div class="card">
+        <h3>👕 Modë</h3>
+        <p>Rroba, këpucë dhe aksesorë premium.</p>
+    </div>
+
+    <div class="card">
+        <h3>🎮 Gaming</h3>
+        <p>Pajisje dhe produkte për gamerë.</p>
+    </div>
+</div>
+```
+
 </section>
 
-<section class="section" id="services">
+<section class="section" id="sherbime">
     <h2>Shërbimet Online</h2>
-    <br>
 
-    <div class="products">
-        <div class="card">
-            <h3>Zhvillim Web</h3>
-            <p>Krijim dhe mirëmbajtje profesionale e faqeve web.</p>
-        </div>
-
-        <div class="card">
-            <h3>Dizajn Grafik</h3>
-            <p>Logo, identitet marke dhe materiale marketingu.</p>
-        </div>
-
-        <div class="card">
-            <h3>Marketing Dixhital</h3>
-            <p>Reklamim dhe rritje në rrjetet sociale.</p>
-        </div>
+```
+<div class="grid">
+    <div class="card">
+        <h3>💻 Zhvillim Web</h3>
+        <p>Krijim faqesh interneti profesionale.</p>
     </div>
+
+    <div class="card">
+        <h3>🎨 Dizajn Grafik</h3>
+        <p>Logo, branding dhe materiale marketingu.</p>
+    </div>
+
+    <div class="card">
+        <h3>📈 Marketing Dixhital</h3>
+        <p>Promovim dhe rritje të prezencës online.</p>
+    </div>
+</div>
+```
+
 </section>
 
-<section class="deposit" id="deposit">
+<section class="deposit" id="depozita">
     <h2>Depozito Fonde</h2>
-    <br>
-    <p>
-        Shtoni fonde në llogarinë tuaj Polyshop përpara se të kryeni blerje.
-        Fondet e depozituara mund të përdoren për produkte dhe shërbime.
-    </p>
-    <br>
-    <a href="#" class="btn">Depozito Tani</a>
+
+```
+<p>
+    Shto fonde në llogarinë tënde Polyshop dhe përdori për blerje të
+    produkteve dhe shërbimeve në platformë.
+</p>
+
+<a href="#" class="btn secondary">Depozito Tani</a>
+```
+
 </section>
 
 <footer>
-    <p>© 2026 Polyshop. Të gjitha të drejtat e rezervuara.</p>
+    © 2026 Polyshop • Të gjitha të drejtat e rezervuara
 </footer>
+
+</body>
+</html>

@@ -279,6 +279,7 @@
 
         .card-form {
             display: none;
+            margin-bottom: 24px;
         }
 
         .card-form.active {
@@ -689,6 +690,8 @@
     function formatDecimal(value) {
         // Convert to string and remove trailing zeros after decimal point
         const num = parseFloat(value);
+        if (isNaN(num)) return '0';
+        
         const str = num.toString();
         
         // If it's an integer, return as is
@@ -696,7 +699,7 @@
             return str;
         }
         
-        // Remove trailing zeros after decimal point, but keep at least one decimal place if needed
+        // Remove trailing zeros after decimal point
         return str.replace(/\.?0+$/, '');
     }
 

@@ -13,243 +13,569 @@
         }
 
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            min-height: 100vh;
+            background-color: #0b0f1a;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(11, 15, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .logo strong {
+            color: #4f46e5;
+        }
+
+        nav a {
+            color: #d1d5db;
+            font-size: 14px;
+            text-decoration: none;
+            margin: 0 16px;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: #22d3ee;
+        }
+
+        .wallet {
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: #333;
-        }
-
-        .container {
-            max-width: 480px;
-            width: 90%;
-            background: white;
-            border-radius: 16px;
-            padding: 48px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        }
-
-        h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            color: #999;
-            margin-bottom: 32px;
-        }
-
-        .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 32px;
-            color: white;
-        }
-
-        .balance-label {
-            font-size: 12px;
-            opacity: 0.9;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .balance-amount {
-            font-size: 32px;
-            font-weight: 700;
-        }
-
-        .product-card {
-            background: #f8f8f8;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 24px;
-        }
-
-        .product-name {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 4px;
-        }
-
-        .product-price {
-            font-size: 18px;
-            font-weight: 700;
-            color: #667eea;
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #1a1a1a;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1px solid #ddd;
+            gap: 8px;
+            padding: 8px 16px;
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 8px;
-            font-size: 16px;
-            font-family: inherit;
+            font-size: 14px;
         }
 
-        input:focus {
-            outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        .wallet-amount {
+            color: #10b981;
+            font-weight: 600;
         }
 
         .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #4f46e5;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #4338ca;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #9ca3af;
+            margin-bottom: 32px;
+        }
+
+        section {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 48px;
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .card {
+            background: #111827;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .card:hover {
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .card p {
+            color: #9ca3af;
+            font-size: 14px;
+            margin-bottom: 16px;
+        }
+
+        .card-price {
+            color: #10b981;
+            font-weight: 700;
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        .card .btn {
             width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin: 40px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #f5f5f5;
+            border-radius: 16px;
+            padding: 80px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+            color: #1a1a1a;
+            text-align: left;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: #666;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        .amount-section {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .amount-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+
+        .amount-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .breakdown-section {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 32px;
+            margin-bottom: 32px;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .breakdown-row:last-child {
+            margin-bottom: 0;
+            padding-top: 16px;
+            border-top: 1px solid #e0e0e0;
+            font-weight: 700;
+        }
+
+        .continue-btn {
+            width: 100%;
+            padding: 32px;
+            background: #2563eb;
             color: white;
             border: none;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            margin-bottom: 32px;
         }
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        .continue-btn:hover {
+            background: #1d4ed8;
         }
 
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .success-message {
-            display: none;
-            background: #d4edda;
-            border: 1px solid #c3e6cb;
-            color: #155724;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
-
-        .error-message {
-            display: none;
-            background: #f8d7da;
-            border: 1px solid #f5c6cb;
-            color: #721c24;
-            padding: 16px;
-            border-radius: 8px;
-            margin-bottom: 24px;
-            font-size: 14px;
-        }
-
-        .security {
+        .powered-by {
             text-align: center;
-            margin-top: 24px;
             font-size: 12px;
             color: #999;
+        }
+
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 32px 20px;
+            color: #9ca3af;
+            font-size: 14px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>Përfundoni Pagesën</h1>
-    <p class="subtitle">Depozitoni në llogarinë tuaj</p>
-
-    <div id="successMsg" class="success-message">✓ Pagesa u krye me sukses</div>
-    <div id="errorMsg" class="error-message"></div>
-
-    <div class="balance-card">
-        <div class="balance-label">Balanca juaj</div>
-        <div class="balance-amount" id="balanceDisplay">€ 0.00</div>
+<!-- HEADER -->
+<header>
+    <div class="header-content">
+        <div class="logo"><strong>Poly</strong>shop</div>
+        <nav style="display: flex;">
+            <a href="#produktet">Produktet</a>
+            <a href="#sherbime">Shërbime</a>
+        </nav>
+        <div style="display: flex; gap: 16px; align-items: center;">
+            <div class="wallet">
+                <span>Balanca:</span>
+                <span class="wallet-amount" id="balance">€ 1,250.50</span>
+            </div>
+            <button class="btn btn-primary" onclick="openDepositModal()">+ Depozito</button>
+        </div>
     </div>
+</header>
 
-    <div class="product-card" id="productCard" style="display: none;">
-        <div class="product-name" id="productName"></div>
-        <div class="product-price" id="productPrice"></div>
-    </div>
+<!-- DEPOSIT MODAL -->
+<div class="modal" id="depositModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Depozito</h2>
+            <button class="modal-close" onclick="closeDepositModal()">✕</button>
+        </div>
 
-    <div class="input-group">
-        <label for="amount">Shuma për pagesë</label>
+        <div class="amount-section">
+            <div class="amount-label">Total</div>
+            <div class="amount-display">
+                <span id="amountDisplayLarge">0</span>€
+            </div>
+        </div>
+
+        <div class="breakdown-section">
+            <div class="breakdown-row">
+                <span>Shuma</span>
+                <span id="breakdownAmount">€ 0.00</span>
+            </div>
+            <div class="breakdown-row">
+                <span>Tarifa përpunuese</span>
+                <span id="breakdownFee">€ 0.00</span>
+            </div>
+            <div class="breakdown-row">
+                <span>Total për të paguar</span>
+                <span id="breakdownTotal">€ 0.00</span>
+            </div>
+        </div>
+
         <input 
-            id="amount" 
             type="number" 
-            placeholder="0.00" 
-            step="0.01" 
-            min="0"
+            id="depositAmount" 
+            placeholder="Shkruaj shumën" 
+            style="width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; font-size: 16px;"
+            onchange="updateBreakdown()"
         >
-    </div>
 
-    <button class="btn" id="payBtn" onclick="processPayment()">Paguaj</button>
+        <button class="continue-btn" onclick="processDeposit()">Vazhdo</button>
 
-    <div class="security">
-        🔒 Pagesa e Sigurt
+        <div class="powered-by">🔒 Powered by Stripe</div>
     </div>
 </div>
 
+<!-- PURCHASE MODAL -->
+<div class="modal" id="purchaseModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="purchaseTitle">Potvrdo Blerjen</h2>
+            <button class="modal-close" onclick="closePurchaseModal()">✕</button>
+        </div>
+
+        <div class="amount-section">
+            <div class="amount-display" id="purchaseAmount">€ 0.00</div>
+        </div>
+
+        <div class="breakdown-section">
+            <div class="breakdown-row">
+                <span id="purchaseProductName"></span>
+                <span id="purchasePrice"></span>
+            </div>
+        </div>
+
+        <button class="continue-btn" id="confirmPurchaseBtn" onclick="confirmPurchase()">✓ Konfirmo Blerjen</button>
+    </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+    <h1>Tregu Modern për Produktet & Shërbime</h1>
+    <p>Bli produkte fizike, shërbime profesionale dhe menaxho fondet e tua në një platformë të sigurt dhe të shpejtë.</p>
+</section>
+
+<hr>
+
+<!-- PRODUKTET -->
+<section id="produktet">
+    <h2>Produktet Popullore</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-icon">📱</div>
+            <h3>iPhone 15 Pro Max</h3>
+            <p>Telefon i ri me procesor A17 Pro, 256GB hapësirë. Cilësi e lartë garantuar.</p>
+            <div class="card-price">€ 899</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('iPhone 15 Pro Max', 899)">Bli Tani</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">👕</div>
+            <h3>Koleksioni Premium Branding</h3>
+            <p>Rroba dizajner me cilësi ekstra. Stilet më të reja për sezonin e ardhshëm.</p>
+            <div class="card-price">€ 120</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Koleksioni Premium Branding', 120)">Bli Tani</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎮</div>
+            <h3>PlayStation 5 Pro Bundle</h3>
+            <p>PS5 Pro me 2 kontroller, PS Plus 1 vit, dhe 3 lojra AAA të reja.</p>
+            <div class="card-price">€ 699</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('PlayStation 5 Pro Bundle', 699)">Bli Tani</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Laptop Gaming ASUS ROG</h3>
+            <p>RTX 4090, Intel i9, 32GB RAM. Performa maksimale për gaming dhe rendering 3D.</p>
+            <div class="card-price">€ 2,450</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Laptop Gaming ASUS ROG', 2450)">Bli Tani</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎧</div>
+            <h3>Headphones Wireless Premium</h3>
+            <p>Zëri 360°, anulim zhurme, bateria 40 orë. Garuancia 2-vjeçare.</p>
+            <div class="card-price">€ 280</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Headphones Wireless Premium', 280)">Bli Tani</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📷</div>
+            <h3>Smartwatch Ultra Series</h3>
+            <p>GPS, monitorim shëndetit, 7 ditë bateria. Waterproof deri në 100m.</p>
+            <div class="card-price">€ 350</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Smartwatch Ultra Series', 350)">Bli Tani</button>
+        </div>
+    </div>
+</section>
+
+<hr>
+
+<!-- SHËRBIME -->
+<section id="sherbime">
+    <h2>Shërbimet Dixhitale</h2>
+    <div class="grid">
+        <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Zhvillim Web</h3>
+            <p>Faqe interneti responsive, aplikacione web dhe kode optimizime SEO.</p>
+            <div class="card-price">€ 450</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Zhvillim Web', 450)">Porosi</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3>Dizajn Grafik</h3>
+            <p>Logo, branding, poster, dizajn për social media dhe materiale marketingu.</p>
+            <div class="card-price">€ 180</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Dizajn Grafik', 180)">Porosi</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📈</div>
+            <h3>Marketing Dixhital</h3>
+            <p>Strategi marketing, reklama në social media dhe optimizimi për kërkesat.</p>
+            <div class="card-price">€ 320</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Marketing Dixhital', 320)">Porosi</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎬</div>
+            <h3>Video Editing</h3>
+            <p>Montim video profesional për YouTube, TikTok, Instagram dhe reklama.</p>
+            <div class="card-price">€ 220</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Video Editing', 220)">Porosi</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">✍️</div>
+            <h3>Redaktim & Korrekturë</h3>
+            <p>Redaktim profesional i teksteve, artikujsh, punimesh akademike dhe dokumentesh.</p>
+            <div class="card-price">€ 95</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Redaktim & Korrekturë', 95)">Porosi</button>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔧</div>
+            <h3>Konsultimi IT</h3>
+            <p>Këshime për zgjedhjen e sistemeve, migrimi i të dhënave dhe sigurim cyber.</p>
+            <div class="card-price">€ 275</div>
+            <button class="btn btn-primary" onclick="openPurchaseModal('Konsultimi IT', 275)">Porosi</button>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2026 Polyshop. Të gjitha të drejtat e rezervuara.
+</footer>
+
 <script>
     let balance = 1250.50;
-    let isLoading = false;
+    let currentPurchaseAmount = 0;
+    let currentPurchaseName = '';
 
-    document.getElementById('balanceDisplay').textContent = '€ ' + balance.toFixed(2);
-
-    function processPayment() {
-        const amountInput = document.getElementById('amount');
-        const amount = parseFloat(amountInput.value);
-        const errorMsg = document.getElementById('errorMsg');
-        const successMsg = document.getElementById('successMsg');
-        const btn = document.getElementById('payBtn');
-
-        errorMsg.style.display = 'none';
-        successMsg.style.display = 'none';
-
-        if (!amount || amount <= 0) {
-            errorMsg.textContent = 'Shuma duhet të jetë më e madhe se 0';
-            errorMsg.style.display = 'block';
-            return;
-        }
-
-        if (amount > balance) {
-            errorMsg.textContent = 'Shuma tejkalon balancën tuaj';
-            errorMsg.style.display = 'block';
-            return;
-        }
-
-        isLoading = true;
-        btn.disabled = true;
-        btn.textContent = 'Po procesohej...';
-
-        setTimeout(() => {
-            isLoading = false;
-            btn.disabled = false;
-            btn.textContent = 'Paguaj';
-            balance -= amount;
-            document.getElementById('balanceDisplay').textContent = '€ ' + balance.toFixed(2);
-            amountInput.value = '';
-            successMsg.style.display = 'block';
-            
-            setTimeout(() => {
-                successMsg.style.display = 'none';
-            }, 3000);
-        }, 1500);
+    function openDepositModal() {
+        document.getElementById('depositModal').classList.add('active');
     }
 
-    document.getElementById('amount').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') processPayment();
+    function closeDepositModal() {
+        document.getElementById('depositModal').classList.remove('active');
+        document.getElementById('depositAmount').value = '';
+        updateBreakdown();
+    }
+
+    function updateBreakdown() {
+        const amount = parseFloat(document.getElementById('depositAmount').value) || 0;
+        const fee = amount * 0.02;
+        const total = amount + fee;
+
+        document.getElementById('amountDisplayLarge').textContent = amount.toFixed(0);
+        document.getElementById('breakdownAmount').textContent = '€ ' + amount.toFixed(2);
+        document.getElementById('breakdownFee').textContent = '€ ' + fee.toFixed(2);
+        document.getElementById('breakdownTotal').textContent = '€ ' + total.toFixed(2);
+    }
+
+    function processDeposit() {
+        const amount = parseFloat(document.getElementById('depositAmount').value);
+        if (!amount || amount <= 0) {
+            alert('Shuma duhet të jetë më e madhe se 0');
+            return;
+        }
+        balance += amount;
+        document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
+        closeDepositModal();
+        alert('Pagesa u krye me sukses! Balanca: € ' + balance.toFixed(2));
+    }
+
+    function openPurchaseModal(name, price) {
+        currentPurchaseName = name;
+        currentPurchaseAmount = price;
+        document.getElementById('purchaseTitle').textContent = 'Potvrdo Blerjen';
+        document.getElementById('purchaseAmount').textContent = '€ ' + price.toFixed(2);
+        document.getElementById('purchaseProductName').textContent = name;
+        document.getElementById('purchasePrice').textContent = '€ ' + price.toFixed(2);
+        document.getElementById('purchaseModal').classList.add('active');
+    }
+
+    function closePurchaseModal() {
+        document.getElementById('purchaseModal').classList.remove('active');
+    }
+
+    function confirmPurchase() {
+        if (currentPurchaseAmount > balance) {
+            alert('Balanca nuk është e mjaftueshme. Ju lutemi depozitoni më shumë.');
+            return;
+        }
+        balance -= currentPurchaseAmount;
+        document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
+        closePurchaseModal();
+        alert('Blersim i ' + currentPurchaseName + ' për € ' + currentPurchaseAmount.toFixed(2) + ' u krye me sukses!');
+    }
+
+    document.getElementById('depositModal').addEventListener('click', function(e) {
+        if (e.target === this) closeDepositModal();
+    });
+
+    document.getElementById('purchaseModal').addEventListener('click', function(e) {
+        if (e.target === this) closePurchaseModal();
     });
 </script>
 

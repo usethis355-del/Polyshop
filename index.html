@@ -198,7 +198,7 @@
         .modal-content {
             background: #f5f5f5;
             border-radius: 16px;
-            padding: 80px;
+            padding: 40px;
             max-width: 480px;
             width: 100%;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
@@ -208,7 +208,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 80px;
+            margin-bottom: 24px;
         }
 
         .modal-header h2 {
@@ -228,7 +228,7 @@
 
         .amount-section {
             text-align: center;
-            margin-bottom: 80px;
+            margin-bottom: 24px;
         }
 
         .amount-label {
@@ -243,31 +243,108 @@
             color: #1a1a1a;
         }
 
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background: #ffffff;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #1a1a1a;
+        }
+
+        .payment-method:hover {
+            border-color: #2563eb;
+            background: #f0f7ff;
+        }
+
+        .payment-method.active {
+            border-color: #2563eb;
+            background: #2563eb;
+            color: white;
+        }
+
+        .card-form {
+            display: none;
+        }
+
+        .card-form.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 12px;
+        }
+
         .breakdown-section {
             background: #ffffff;
             border-radius: 8px;
-            padding: 32px;
-            margin-bottom: 32px;
+            padding: 16px;
+            margin-bottom: 24px;
+            border: 1px solid #e0e0e0;
         }
 
         .breakdown-row {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             font-size: 14px;
             color: #1a1a1a;
         }
 
         .breakdown-row:last-child {
             margin-bottom: 0;
-            padding-top: 16px;
+            padding-top: 12px;
             border-top: 1px solid #e0e0e0;
             font-weight: 700;
+            color: #2563eb;
         }
 
         .continue-btn {
             width: 100%;
-            padding: 32px;
+            padding: 12px;
             background: #2563eb;
             color: white;
             border: none;
@@ -276,11 +353,28 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            margin-bottom: 32px;
+            margin-bottom: 12px;
         }
 
         .continue-btn:hover {
             background: #1d4ed8;
+        }
+
+        .continue-btn:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .deposit-input-section {
+            margin-bottom: 24px;
+        }
+
+        .deposit-input-section input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
         }
 
         .powered-by {
@@ -322,41 +416,88 @@
 <div class="modal" id="depositModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Depozito</h2>
+            <h2>Add Funds</h2>
             <button class="modal-close" onclick="closeDepositModal()">✕</button>
         </div>
 
         <div class="amount-section">
-            <div class="amount-label">Total</div>
+            <div class="amount-label">Total Amount</div>
             <div class="amount-display">
                 <span id="amountDisplayLarge">0</span>€
             </div>
         </div>
 
+        <div class="deposit-input-section">
+            <input 
+                type="number" 
+                id="depositAmount" 
+                placeholder="Enter amount" 
+                onchange="updateBreakdown()"
+                oninput="updateBreakdown()"
+            >
+        </div>
+
+        <div class="payment-methods">
+            <div class="payment-method active" onclick="selectPaymentMethod('card')">
+                💳 Card
+            </div>
+            <div class="payment-method" onclick="selectPaymentMethod('bank')">
+                🏦 Bank Transfer
+            </div>
+        </div>
+
+        <div class="card-form active" id="cardForm">
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" placeholder="123" maxlength="4">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Cardholder Name</label>
+                <input type="text" placeholder="Full Name">
+            </div>
+        </div>
+
+        <div class="card-form" id="bankForm">
+            <div class="form-group">
+                <label>Bank Account Number</label>
+                <input type="text" placeholder="Enter your account number">
+            </div>
+            <div class="form-group">
+                <label>Bank Name</label>
+                <input type="text" placeholder="Your bank">
+            </div>
+            <div class="form-group">
+                <label>Account Holder</label>
+                <input type="text" placeholder="Full name">
+            </div>
+        </div>
+
         <div class="breakdown-section">
             <div class="breakdown-row">
-                <span>Shuma</span>
+                <span>Amount</span>
                 <span id="breakdownAmount">€ 0.00</span>
             </div>
             <div class="breakdown-row">
-                <span>Tarifa përpunuese</span>
+                <span>Processing Fee</span>
                 <span id="breakdownFee">€ 0.00</span>
             </div>
             <div class="breakdown-row">
-                <span>Total për të paguar</span>
+                <span>Total to Pay</span>
                 <span id="breakdownTotal">€ 0.00</span>
             </div>
         </div>
 
-        <input 
-            type="number" 
-            id="depositAmount" 
-            placeholder="Shkruaj shumën" 
-            style="width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 8px; margin-bottom: 16px; font-size: 16px;"
-            onchange="updateBreakdown()"
-        >
-
-        <button class="continue-btn" onclick="processDeposit()">Vazhdo</button>
+        <button class="continue-btn" onclick="processDeposit()">Complete Payment</button>
 
         <div class="powered-by">🔒 Powered by Stripe</div>
     </div>
@@ -366,7 +507,7 @@
 <div class="modal" id="purchaseModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 id="purchaseTitle">Potvrdo Blerjen</h2>
+            <h2 id="purchaseTitle">Confirm Purchase</h2>
             <button class="modal-close" onclick="closePurchaseModal()">✕</button>
         </div>
 
@@ -381,7 +522,7 @@
             </div>
         </div>
 
-        <button class="continue-btn" id="confirmPurchaseBtn" onclick="confirmPurchase()">✓ Konfirmo Blerjen</button>
+        <button class="continue-btn" id="confirmPurchaseBtn" onclick="confirmPurchase()">✓ Confirm Purchase</button>
     </div>
 </div>
 
@@ -511,6 +652,7 @@
     let balance = 1250.50;
     let currentPurchaseAmount = 0;
     let currentPurchaseName = '';
+    let selectedPaymentMethod = 'card';
 
     function openDepositModal() {
         document.getElementById('depositModal').classList.add('active');
@@ -520,6 +662,25 @@
         document.getElementById('depositModal').classList.remove('active');
         document.getElementById('depositAmount').value = '';
         updateBreakdown();
+    }
+
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        
+        document.querySelectorAll('.payment-method').forEach(el => {
+            el.classList.remove('active');
+        });
+        event.target.closest('.payment-method').classList.add('active');
+        
+        document.querySelectorAll('.card-form').forEach(el => {
+            el.classList.remove('active');
+        });
+        
+        if (method === 'card') {
+            document.getElementById('cardForm').classList.add('active');
+        } else {
+            document.getElementById('bankForm').classList.add('active');
+        }
     }
 
     function updateBreakdown() {
@@ -536,19 +697,19 @@
     function processDeposit() {
         const amount = parseFloat(document.getElementById('depositAmount').value);
         if (!amount || amount <= 0) {
-            alert('Shuma duhet të jetë më e madhe se 0');
+            alert('Amount must be greater than 0');
             return;
         }
         balance += amount;
         document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
         closeDepositModal();
-        alert('Pagesa u krye me sukses! Balanca: € ' + balance.toFixed(2));
+        alert('Payment successful! Balance: € ' + balance.toFixed(2));
     }
 
     function openPurchaseModal(name, price) {
         currentPurchaseName = name;
         currentPurchaseAmount = price;
-        document.getElementById('purchaseTitle').textContent = 'Potvrdo Blerjen';
+        document.getElementById('purchaseTitle').textContent = 'Confirm Purchase';
         document.getElementById('purchaseAmount').textContent = '€ ' + price.toFixed(2);
         document.getElementById('purchaseProductName').textContent = name;
         document.getElementById('purchasePrice').textContent = '€ ' + price.toFixed(2);
@@ -561,13 +722,13 @@
 
     function confirmPurchase() {
         if (currentPurchaseAmount > balance) {
-            alert('Balanca nuk është e mjaftueshme. Ju lutemi depozitoni më shumë.');
+            alert('Insufficient balance. Please deposit more funds.');
             return;
         }
         balance -= currentPurchaseAmount;
         document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
         closePurchaseModal();
-        alert('Blersim i ' + currentPurchaseName + ' për € ' + currentPurchaseAmount.toFixed(2) + ' u krye me sukses!');
+        alert('Purchase of ' + currentPurchaseName + ' for € ' + currentPurchaseAmount.toFixed(2) + ' completed successfully!');
     }
 
     document.getElementById('depositModal').addEventListener('click', function(e) {

@@ -6,834 +6,572 @@
     <title>Polyshop - Tregu Dixhital</title>
     
     <style>
+        /* ===== DESIGN SYSTEM ===== */
+        :root {
+            --bg-primary: #0b0f1a;
+            --bg-secondary: #111827;
+            --bg-tertiary: #1f2937;
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-light: rgba(255, 255, 255, 0.04);
+            
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --text-muted: #9ca3af;
+            
+            --color-primary: #4f46e5;
+            --color-primary-hover: #4338ca;
+            --color-accent: #22d3ee;
+            --color-accent-hover: #06b6d4;
+            
+            --spacing-xs: 8px;
+            --spacing-sm: 16px;
+            --spacing-md: 32px;
+            --spacing-lg: 80px;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            
+            --radius-sm: 6px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1a3e 50%, #0f0f2e 100%);
-            color: #e0e0ff;
-            font-family: 'Segoe UI', 'JetBrains Mono', monospace;
-            overflow-x: hidden;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* NAVBAR - STICKY */
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            line-height: 1.6;
+            font-size: 16px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ===== TYPOGRAPHY ===== */
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        h2 {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+            margin-bottom: var(--spacing-md);
+            color: var(--text-primary);
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            line-height: 1.4;
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-primary);
+        }
+
+        p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        a {
+            color: var(--color-accent);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--color-accent-hover);
+        }
+
+        /* ===== LAYOUT ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-sm);
+        }
+
+        .section {
+            padding: var(--spacing-lg) 0;
+        }
+
+        .section:first-of-type {
+            padding-top: var(--spacing-lg);
+        }
+
+        /* ===== HEADER ===== */
         header {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
-            background: rgba(10, 14, 39, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(34, 211, 238, 0.2);
-            padding: 12px 20px;
+            background: rgba(11, 15, 26, 0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.1);
+            padding: var(--spacing-sm) 0;
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #00d4ff, #0099ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-            white-space: nowrap;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
         }
 
-        .navbar-center {
-            flex: 1;
+        .logo strong {
+            color: var(--color-primary);
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            padding: var(--spacing-xs) var(--spacing-sm);
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-md);
+        }
+
+        .wallet {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+        }
+
+        .wallet-label {
+            color: var(--text-muted);
+        }
+
+        .wallet-amount {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--spacing-xs);
+            padding: var(--spacing-xs) var(--spacing-sm);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-tertiary);
+            border-color: rgba(255, 255, 255, 0.12);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--color-accent);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(34, 211, 238, 0.1);
+            border-color: var(--color-accent);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            text-align: center;
+            padding: calc(var(--spacing-lg) * 1.5) 0;
+        }
+
+        .hero h1 {
+            max-width: 700px;
+            margin: 0 auto var(--spacing-md);
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-md);
+            font-size: 18px;
+            color: var(--text-muted);
+        }
+
+        .hero-buttons {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            max-width: 600px;
-            margin: 0 auto;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
         }
 
-        .search-bar {
-            flex: 1;
-            max-width: 300px;
-            position: relative;
-        }
-
-        .search-bar input {
-            width: 100%;
-            padding: 10px 16px 10px 40px;
-            background: rgba(34, 211, 238, 0.1);
-            border: 1px solid rgba(34, 211, 238, 0.3);
-            border-radius: 25px;
-            color: #e0e0ff;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .search-bar input:focus {
-            outline: none;
-            background: rgba(34, 211, 238, 0.2);
-            border-color: #22d3ee;
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
-        }
-
-        .search-bar input::placeholder {
-            color: rgba(224, 224, 255, 0.5);
-        }
-
-        .search-icon {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #22d3ee;
-        }
-
-        .wallet-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            white-space: nowrap;
-        }
-
-        .balance {
-            font-size: 14px;
-            color: #22d3ee;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .balance-amount {
-            color: #00ff88;
-            font-size: 16px;
-            font-weight: 800;
-        }
-
-        .add-funds-btn {
-            padding: 8px 20px;
-            background: linear-gradient(135deg, #00d4ff, #0099ff);
-            border: none;
-            border-radius: 8px;
-            color: #0a0e27;
-            font-weight: 700;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .add-funds-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
-        }
-
-        /* MAIN LAYOUT */
-        .container {
-            display: flex;
-            margin-top: 60px;
-            min-height: calc(100vh - 60px);
-        }
-
-        /* SIDEBAR FILTERS */
-        .sidebar {
-            width: 220px;
-            background: rgba(15, 15, 46, 0.8);
-            border-right: 1px solid rgba(139, 92, 246, 0.2);
-            padding: 25px 15px;
-            position: fixed;
-            height: calc(100vh - 60px);
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(139, 92, 246, 0.5) transparent;
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: rgba(139, 92, 246, 0.5);
-            border-radius: 10px;
-        }
-
-        .filter-title {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #8b5cf6;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .filter-group {
-            margin-bottom: 25px;
-        }
-
-        .filter-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: all 0.2s ease;
-        }
-
-        .filter-label:hover {
-            color: #22d3ee;
-        }
-
-        .filter-label input {
-            accent-color: #8b5cf6;
-            cursor: pointer;
-        }
-
-        /* FEED */
-        .feed {
-            flex: 1;
-            margin-left: 220px;
-            padding: 25px 30px;
-            overflow-y: auto;
-            max-height: calc(100vh - 60px);
-            scrollbar-width: thin;
-            scrollbar-color: rgba(34, 211, 238, 0.3) transparent;
-        }
-
-        .feed::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .feed::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .feed::-webkit-scrollbar-thumb {
-            background: rgba(34, 211, 238, 0.3);
-            border-radius: 10px;
-        }
-
-        .feed::-webkit-scrollbar-thumb:hover {
-            background: rgba(34, 211, 238, 0.6);
-        }
-
-        .feed-header {
-            margin-bottom: 20px;
-        }
-
-        .feed-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 5px;
-            background: linear-gradient(135deg, #00d4ff, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .feed-subtitle {
-            font-size: 12px;
-            color: rgba(224, 224, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* CARDS */
-        .cards-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
+        /* ===== CARDS ===== */
         .card {
-            background: linear-gradient(135deg, rgba(34, 211, 238, 0.05), rgba(139, 92, 246, 0.05));
-            border: 1px solid rgba(34, 211, 238, 0.2);
-            border-radius: 12px;
-            padding: 18px;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            position: relative;
-            overflow: hidden;
-            animation: slideIn 0.5s ease-out forwards;
-            opacity: 0;
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
-        .card:nth-child(4) { animation-delay: 0.4s; }
-        .card:nth-child(5) { animation-delay: 0.5s; }
-        .card:nth-child(6) { animation-delay: 0.6s; }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .card:hover::before {
-            left: 100%;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
-            border-color: #22d3ee;
-            background: linear-gradient(135deg, rgba(34, 211, 238, 0.15), rgba(139, 92, 246, 0.15));
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 0 40px rgba(34, 211, 238, 0.4), inset 0 0 30px rgba(34, 211, 238, 0.05);
+            border-color: rgba(255, 255, 255, 0.12);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-2px);
         }
 
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 12px;
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: var(--spacing-sm);
         }
 
-        .card-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #00d4ff;
-            letter-spacing: 0.5px;
+        .card h3 {
+            margin-bottom: var(--spacing-xs);
         }
 
-        .badges {
-            display: flex;
-            gap: 8px;
-        }
-
-        .badge {
-            font-size: 10px;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
-        }
-
-        .badge-trending {
-            background: linear-gradient(135deg, rgba(255, 69, 0, 0.3), rgba(255, 165, 0, 0.3));
-            border: 1px solid rgba(255, 165, 0, 0.6);
-            color: #ffa500;
-        }
-
-        .badge-hot {
-            background: linear-gradient(135deg, rgba(255, 0, 100, 0.3), rgba(255, 69, 0, 0.3));
-            border: 1px solid rgba(255, 0, 100, 0.6);
-            color: #ff0064;
-        }
-
-        .card-description {
-            font-size: 13px;
-            color: rgba(224, 224, 255, 0.7);
-            margin-bottom: 12px;
-            line-height: 1.4;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 12px;
-            border-top: 1px solid rgba(34, 211, 238, 0.1);
-        }
-
-        .card-price {
+        .card p {
+            color: var(--text-muted);
             font-size: 14px;
-            color: #00ff88;
-            font-weight: 800;
-            letter-spacing: 1px;
+            line-height: 1.6;
         }
 
-        .card-action {
-            padding: 6px 14px;
-            background: rgba(34, 211, 238, 0.2);
-            border: 1px solid rgba(34, 211, 238, 0.5);
-            border-radius: 6px;
-            color: #22d3ee;
-            font-size: 12px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        /* ===== GRID ===== */
+        .grid {
+            display: grid;
+            gap: var(--spacing-md);
         }
 
-        .card-action:hover {
-            background: rgba(34, 211, 238, 0.4);
-            border-color: #00d4ff;
-            color: #00d4ff;
-            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        .grid-2 {
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 1200px) {
-            .sidebar {
-                width: 180px;
-            }
-
-            .feed {
-                margin-left: 180px;
-            }
+        .grid-3 {
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         }
 
         @media (max-width: 768px) {
-            .container {
+            .grid-2,
+            .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            h2 {
+                font-size: 28px;
+            }
+
+            .hero-buttons {
                 flex-direction: column;
             }
 
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-                border-right: none;
-                border-bottom: 1px solid rgba(139, 92, 246, 0.2);
-                padding: 15px;
-                display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            .header-right {
+                gap: var(--spacing-sm);
             }
 
-            .feed {
-                margin-left: 0;
-                padding: 15px;
+            .wallet {
+                display: none;
             }
 
-            .navbar-center {
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .search-bar {
-                max-width: 100%;
-            }
-
-            header {
-                flex-wrap: wrap;
+            nav {
+                display: none;
             }
         }
 
-        @media (max-width: 480px) {
-            header {
-                padding: 10px;
-                gap: 10px;
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .section-title h2 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-title p {
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 16px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-lg) var(--spacing-md);
+            text-align: center;
+        }
+
+        .cta h2 {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .cta p {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-md);
+            font-size: 16px;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            text-align: center;
+        }
+
+        /* ===== DIVIDER ===== */
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: var(--spacing-md) 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            :root {
+                --spacing-md: 24px;
+                --spacing-lg: 48px;
             }
 
-            .logo {
-                font-size: 20px;
+            h1 {
+                font-size: 32px;
             }
 
-            .navbar-center {
-                display: none;
+            h2 {
+                font-size: 24px;
             }
 
-            .search-bar {
-                display: none;
-            }
-
-            .feed {
-                padding: 12px;
+            h3 {
+                font-size: 18px;
             }
 
             .card {
-                padding: 12px;
+                padding: var(--spacing-sm);
             }
 
-            .card-title {
-                font-size: 14px;
+            .cta {
+                padding: var(--spacing-md) var(--spacing-sm);
+            }
+
+            .header-content {
+                padding: var(--spacing-sm) 0;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- NAVBAR -->
+    <!-- ===== HEADER ===== -->
     <header>
-        <div class="logo">◆ POLYSHOP</div>
-        
-        <div class="navbar-center">
-            <div class="search-bar">
-                <span class="search-icon">🔍</span>
-                <input type="text" placeholder="Kërko produkte & shërbime...">
-            </div>
-        </div>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo"><strong>Poly</strong>shop</div>
+                
+                <nav style="display: flex; gap: 32px;">
+                    <a href="#produktet">Produktet</a>
+                    <a href="#sherbime">Shërbime</a>
+                    <a href="#depozita">Depozita</a>
+                </nav>
 
-        <div class="wallet-section">
-            <div class="balance">
-                Balanca: <span class="balance-amount">€ 245.50</span>
+                <div class="header-right">
+                    <div class="wallet">
+                        <span class="wallet-label">Balanca:</span>
+                        <span class="wallet-amount">€ 245.50</span>
+                    </div>
+                    <button class="btn btn-primary">+ Depozito</button>
+                </div>
             </div>
-            <button class="add-funds-btn">+ Depozito</button>
         </div>
     </header>
 
-    <!-- MAIN CONTAINER -->
-    <div class="container">
-        <!-- SIDEBAR FILTERS -->
-        <aside class="sidebar">
-            <div class="filter-title">Kategori</div>
-            <div class="filter-group">
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>📱 Elektronikë</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>👕 Modë</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>🎮 Gaming</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>💻 Zhvillim Web</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>🎨 Dizajn Grafik</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>📈 Marketing</span>
-                </label>
+    <!-- ===== HERO ===== -->
+    <section class="section hero">
+        <div class="container">
+            <h1>Tregu Modern për Produktet & Shërbime</h1>
+            <p>Bli produkte fizike, shërbime profesionale dhe menaxho fondet e tua në një platformë të sigurt dhe të shpejtë.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Shiko Produktet</button>
+                <button class="btn btn-ghost">Mëso më Shumë</button>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- ===== PRODUKTET ===== -->
+    <section class="section" id="produktet">
+        <div class="container">
+            <div class="section-title">
+                <h2>Produktet Popullore</h2>
+                <p>Zgjedh nga koleksioni i gjerë i produkteve teknologjike dhe të modës.</p>
             </div>
 
-            <div class="filter-title">Çmimi</div>
-            <div class="filter-group">
-                <label class="filter-label">
-                    <input type="checkbox">
-                    <span>€ 0 - 50</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox">
-                    <span>€ 50 - 200</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox">
-                    <span>€ 200+</span>
-                </label>
-            </div>
-
-            <div class="filter-title">Statusi</div>
-            <div class="filter-group">
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>🔥 Në Trend</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox" checked>
-                    <span>⚡ Nxehtë</span>
-                </label>
-                <label class="filter-label">
-                    <input type="checkbox">
-                    <span>⭐ Më Të Reja</span>
-                </label>
-            </div>
-        </aside>
-
-        <!-- FEED -->
-        <main class="feed">
-            <div class="feed-header">
-                <div class="feed-title">Tregu i Drejtpërdrejtë</div>
-                <div class="feed-subtitle">🟢 LIVE • Përditësohet në kohë reale</div>
-            </div>
-
-            <div class="cards-container">
-                <!-- PRODUKTET -->
+            <div class="grid grid-3">
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📱 iPhone 15 Pro Max</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Telefon i ri me procesor A17 Pro, 256GB hapësirë. Cilësi e lartë garantuar.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 899</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
+                    <div class="card-icon">📱</div>
+                    <h3>Elektronikë</h3>
+                    <p>Telefona, laptopë, tabletë dhe aksesorë teknologjikë me garanci.</p>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">💻 Laptop Gaming ASUS ROG</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        RTX 4090, Intel i9, 32GB RAM. Performa maksimale për gaming dhe rendering 3D.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 2,450</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
+                    <div class="card-icon">👕</div>
+                    <h3>Modë & Aksesorë</h3>
+                    <p>Rroba dizajner, këpucë premium dhe aksesorë të modshmeve.</p>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">👕 Koleksioni Premium Branding</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Rroba dizajner me cilësi ekstra. Stilet më të reja për sezonin e ardhshëm.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 120</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
-                </div>
-
-                <!-- SHERBIME DIXHITALE -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">💻 Zhvillim Faqe Web Pro</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Dizajn responsive, optimizim SEO, hosting për 1 vit. Përshpejtim ndërnationalit.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 450</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
+                    <div class="card-icon">🎮</div>
+                    <h3>Gaming & Pajisje</h3>
+                    <p>Konsola, headphone, mouse dhe tastierë për gamere profesional.</p>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🎨 Dizajn Grafik Profesional</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Logo, branding, poster, dizajn për social media. Revision e pakufizuar deri në aprovim.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 180</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
+                    <div class="card-icon">⌚</div>
+                    <h3>Wearables & Pajisje</h3>
+                    <p>Smartwatch, fitnessbanda dhe pajisje të zgjuara për shëndeti.</p>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📈 Kampanja Marketing Dixhital</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Strategi marketing për Facebook, Instagram, Google Ads. Rritje followerash garantuar.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 320</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
-                </div>
-
-                <!-- GAMING -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🎮 PlayStation 5 Pro Bundle</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        PS5 Pro me 2 kontroller, PS Plus 1 vit, dhe 3 lojra AAA të reja.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 699</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
+                    <div class="card-icon">🎧</div>
+                    <h3>Audio Premium</h3>
+                    <p>Headphone wireless, altapaçe dhe sisteme audio profesional.</p>
                 </div>
 
                 <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🎧 Headphones Wireless Premium</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Zëri 360°, anulim zhurme, bateria 40 orë. Garuncia 2-vjeçare.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 280</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">📱 Smartwatch Ultra Series</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        GPS, monitorim shëndetit, 7 ditë bateria. Waterpfoof deri në 100m.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 350</div>
-                        <button class="card-action">Bli Tani</button>
-                    </div>
-                </div>
-
-                <!-- MË SHUMË SHËRBIME -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">✍️ Redaktim & Korrekturë Teksti</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Korrekturë e dokumenteve, artikujsh, përmbajtje web. Shërbim i shpejtë brenda 24h.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 45</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🎬 Video Editing & Produksioni</div>
-                        <div class="badges">
-                            <span class="badge badge-trending">TRENDING</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Montim video për YouTube, TikTok, Instagram. Efekte profesionale dhe muzikë.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 220</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-title">🌐 Kurse Online Programim</div>
-                        <div class="badges">
-                            <span class="badge badge-hot">🔥 HOT</span>
-                        </div>
-                    </div>
-                    <div class="card-description">
-                        Python, JavaScript, React. Mësim interaktiv me sertifikat në fund.
-                    </div>
-                    <div class="card-footer">
-                        <div class="card-price">€ 99</div>
-                        <button class="card-action">Porosi</button>
-                    </div>
+                    <div class="card-icon">📷</div>
+                    <h3>Fotografi & Video</h3>
+                    <p>Kamerat, drone-të, lente dhe aksesore për fotografë profesional.</p>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </section>
 
-    <script>
-        // SMOOTH SCROLL EFFECT
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
+    <hr>
 
-        // ANIMATED CARD COUNTER
-        const cards = document.querySelectorAll('.card');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                }
-            });
-        });
+    <!-- ===== SHËRBIME ===== -->
+    <section class="section" id="sherbime">
+        <div class="container">
+            <div class="section-title">
+                <h2>Shërbimet Dixhitale</h2>
+                <p>Shërbime profesionale online nga ekspertë në industri.</p>
+            </div>
 
-        cards.forEach(card => observer.observe(card));
+            <div class="grid grid-3">
+                <div class="card">
+                    <div class="card-icon">💻</div>
+                    <h3>Zhvillim Web</h3>
+                    <p>Faqe interneti responsive, aplikacione web dhe kode optimizime SEO.</p>
+                </div>
 
-        // SEARCH FUNCTIONALITY
-        const searchInput = document.querySelector('.search-bar input');
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            cards.forEach(card => {
-                const title = card.querySelector('.card-title').textContent.toLowerCase();
-                const desc = card.querySelector('.card-description').textContent.toLowerCase();
-                card.style.display = title.includes(query) || desc.includes(query) ? 'block' : 'none';
-            });
-        });
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Dizajn Grafik</h3>
+                    <p>Logo, branding, poster, dizajn për social media dhe materiale marketingu.</p>
+                </div>
 
-        // FILTER FUNCTIONALITY
-        const filterCheckboxes = document.querySelectorAll('.sidebar input[type="checkbox"]');
-        filterCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', () => {
-                const activeFilters = Array.from(filterCheckboxes)
-                    .filter(cb => cb.checked)
-                    .map(cb => cb.nextElementSibling.textContent.trim());
+                <div class="card">
+                    <div class="card-icon">📈</div>
+                    <h3>Marketing Dixhital</h3>
+                    <p>Strategi marketing, reklama në social media dhe optimizimi për kërkesat.</p>
+                </div>
 
-                cards.forEach(card => {
-                    const cardText = card.textContent.toLowerCase();
-                    const matches = activeFilters.some(filter => cardText.includes(filter.toLowerCase()));
-                    card.style.display = activeFilters.length === 0 || matches ? 'block' : 'none';
-                });
-            });
-        });
+                <div class="card">
+                    <div class="card-icon">🎬</div>
+                    <h3>Video Editing</h3>
+                    <p>Montim video profesional për YouTube, TikTok, Instagram dhe reklama.</p>
+                </div>
 
-        // ADD FUNDS BUTTON
-        document.querySelector('.add-funds-btn').addEventListener('click', () => {
-            alert('Shto fonde në llogarinë tënde Polyshop!');
-        });
+                <div class="card">
+                    <div class="card-icon">✍️</div>
+                    <h3>Redaktim & Kopim</h3>
+                    <p>Redaktim tekstesh, korrekturë dhe shërbim korrespodence profesionale.</p>
+                </div>
 
-        // CARD CLICK ANIMATION
-        cards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('card-action')) {
-                    card.style.animation = 'none';
-                    setTimeout(() => {
-                        card.style.animation = '';
-                    }, 10);
-                }
-            });
-        });
-    </script>
+                <div class="card">
+                    <div class="card-icon">🌐</div>
+                    <h3>Kurse Online</h3>
+                    <p>Kurse programimi, dizajni, marketingu me sertifikat të vlefshmë.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- ===== CTA DEPOZITA ===== -->
+    <section class="section" id="depozita">
+        <div class="container">
+            <div class="cta">
+                <h2>Depozito Fonde</h2>
+                <p>Shto fonde në llogarinë tënde Polyshop dhe fillo të blesh produktet dhe shërbime që të duhen.</p>
+                <button class="btn btn-primary">Depozito Tani</button>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <p>© 2026 Polyshop. Të gjitha të drejtat e rezervuara.</p>
+        </div>
+    </footer>
 
 </body>
 </html>

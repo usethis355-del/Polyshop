@@ -416,12 +416,12 @@
 <div class="modal" id="depositModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2>Add Funds</h2>
+            <h2>Depozito Fondet</h2>
             <button class="modal-close" onclick="closeDepositModal()">✕</button>
         </div>
 
         <div class="amount-section">
-            <div class="amount-label">Total Amount</div>
+            <div class="amount-label">Shuma Totale</div>
             <div class="amount-display">
                 <span id="amountDisplayLarge">0</span>€
             </div>
@@ -431,7 +431,7 @@
             <input 
                 type="number" 
                 id="depositAmount" 
-                placeholder="Enter amount" 
+                placeholder="Shkruaj shumën" 
                 onchange="updateBreakdown()"
                 oninput="updateBreakdown()"
             >
@@ -439,21 +439,21 @@
 
         <div class="payment-methods">
             <div class="payment-method active" onclick="selectPaymentMethod('card')">
-                💳 Card
+                💳 Kartë
             </div>
             <div class="payment-method" onclick="selectPaymentMethod('bank')">
-                🏦 Bank Transfer
+                🏦 Transferim Bankar
             </div>
         </div>
 
         <div class="card-form active" id="cardForm">
             <div class="form-group">
-                <label>Card Number</label>
+                <label>Numri i Kartës</label>
                 <input type="text" placeholder="1234 5678 9012 3456" maxlength="19">
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label>Expiry Date</label>
+                    <label>Data Skadimit</label>
                     <input type="text" placeholder="MM/YY" maxlength="5">
                 </div>
                 <div class="form-group">
@@ -462,42 +462,42 @@
                 </div>
             </div>
             <div class="form-group">
-                <label>Cardholder Name</label>
-                <input type="text" placeholder="Full Name">
+                <label>Emri i Zotëruesit</label>
+                <input type="text" placeholder="Emri i Plotë">
             </div>
         </div>
 
         <div class="card-form" id="bankForm">
             <div class="form-group">
-                <label>Bank Account Number</label>
-                <input type="text" placeholder="Enter your account number">
+                <label>Numri i Llogarisë Bankare</label>
+                <input type="text" placeholder="Shkruaj numrin e llogarisë">
             </div>
             <div class="form-group">
-                <label>Bank Name</label>
-                <input type="text" placeholder="Your bank">
+                <label>Emri i Bankës</label>
+                <input type="text" placeholder="Banka juaj">
             </div>
             <div class="form-group">
-                <label>Account Holder</label>
-                <input type="text" placeholder="Full name">
+                <label>Zotëruesi i Llogarisë</label>
+                <input type="text" placeholder="Emri i Plotë">
             </div>
         </div>
 
         <div class="breakdown-section">
             <div class="breakdown-row">
-                <span>Amount</span>
+                <span>Shuma</span>
                 <span id="breakdownAmount">€ 0.00</span>
             </div>
             <div class="breakdown-row">
-                <span>Processing Fee</span>
+                <span>Tarifa përpunuese</span>
                 <span id="breakdownFee">€ 0.00</span>
             </div>
             <div class="breakdown-row">
-                <span>Total to Pay</span>
+                <span>Total për të paguar</span>
                 <span id="breakdownTotal">€ 0.00</span>
             </div>
         </div>
 
-        <button class="continue-btn" onclick="processDeposit()">Complete Payment</button>
+        <button class="continue-btn" onclick="processDeposit()">Përfundo Pagesën</button>
 
         <div class="powered-by">🔒 Powered by Stripe</div>
     </div>
@@ -507,7 +507,7 @@
 <div class="modal" id="purchaseModal">
     <div class="modal-content">
         <div class="modal-header">
-            <h2 id="purchaseTitle">Confirm Purchase</h2>
+            <h2 id="purchaseTitle">Potvrdo Blerjen</h2>
             <button class="modal-close" onclick="closePurchaseModal()">✕</button>
         </div>
 
@@ -522,7 +522,7 @@
             </div>
         </div>
 
-        <button class="continue-btn" id="confirmPurchaseBtn" onclick="confirmPurchase()">✓ Confirm Purchase</button>
+        <button class="continue-btn" id="confirmPurchaseBtn" onclick="confirmPurchase()">✓ Konfirmo Blerjen</button>
     </div>
 </div>
 
@@ -697,19 +697,19 @@
     function processDeposit() {
         const amount = parseFloat(document.getElementById('depositAmount').value);
         if (!amount || amount <= 0) {
-            alert('Amount must be greater than 0');
+            alert('Shuma duhet të jetë më e madhe se 0');
             return;
         }
         balance += amount;
         document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
         closeDepositModal();
-        alert('Payment successful! Balance: € ' + balance.toFixed(2));
+        alert('Pagesa u krye me sukses! Balanca: € ' + balance.toFixed(2));
     }
 
     function openPurchaseModal(name, price) {
         currentPurchaseName = name;
         currentPurchaseAmount = price;
-        document.getElementById('purchaseTitle').textContent = 'Confirm Purchase';
+        document.getElementById('purchaseTitle').textContent = 'Potvrdo Blerjen';
         document.getElementById('purchaseAmount').textContent = '€ ' + price.toFixed(2);
         document.getElementById('purchaseProductName').textContent = name;
         document.getElementById('purchasePrice').textContent = '€ ' + price.toFixed(2);
@@ -722,13 +722,13 @@
 
     function confirmPurchase() {
         if (currentPurchaseAmount > balance) {
-            alert('Insufficient balance. Please deposit more funds.');
+            alert('Balanca nuk është e mjaftueshme. Ju lutemi depozitoni më shumë.');
             return;
         }
         balance -= currentPurchaseAmount;
         document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
         closePurchaseModal();
-        alert('Purchase of ' + currentPurchaseName + ' for € ' + currentPurchaseAmount.toFixed(2) + ' completed successfully!');
+        alert('Blersim i ' + currentPurchaseName + ' për € ' + currentPurchaseAmount.toFixed(2) + ' u krye me sukses!');
     }
 
     document.getElementById('depositModal').addEventListener('click', function(e) {

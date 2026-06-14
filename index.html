@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Polyshop - Tregu Dixhital</title>
     
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
     <style>
         /* ===== DESIGN SYSTEM ===== */
         :root {
@@ -23,6 +26,8 @@
             --color-primary-hover: #4338ca;
             --color-accent: #22d3ee;
             --color-accent-hover: #06b6d4;
+            --color-success: #10b981;
+            --color-danger: #ef4444;
             
             --spacing-xs: 8px;
             --spacing-sm: 16px;
@@ -178,7 +183,7 @@
         }
 
         .wallet-amount {
-            color: var(--color-accent);
+            color: var(--color-success);
             font-weight: 600;
         }
 
@@ -228,6 +233,21 @@
         .btn-ghost:hover {
             background: rgba(34, 211, 238, 0.1);
             border-color: var(--color-accent);
+        }
+
+        .btn-success {
+            background: var(--color-success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         /* ===== HERO ===== */
@@ -283,6 +303,18 @@
             color: var(--text-muted);
             font-size: 14px;
             line-height: 1.6;
+        }
+
+        .card-price {
+            margin-top: var(--spacing-sm);
+            color: var(--color-success);
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .card-button {
+            margin-top: var(--spacing-sm);
+            width: 100%;
         }
 
         /* ===== GRID ===== */
@@ -365,6 +397,119 @@
             font-size: 16px;
         }
 
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-sm);
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md);
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        /* ===== FORM ===== */
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: var(--spacing-xs);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: var(--spacing-sm);
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-primary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
+        }
+
+        #card-element {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: var(--bg-tertiary);
+        }
+
+        /* ===== ALERT ===== */
+        .alert {
+            padding: var(--spacing-sm);
+            border-radius: var(--radius-md);
+            margin-bottom: var(--spacing-md);
+            font-size: 14px;
+        }
+
+        .alert-success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: var(--color-success);
+        }
+
+        .alert-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: var(--color-danger);
+        }
+
         /* ===== FOOTER ===== */
         footer {
             border-top: 1px solid var(--border-color);
@@ -411,6 +556,10 @@
             .header-content {
                 padding: var(--spacing-sm) 0;
             }
+
+            .modal-content {
+                padding: var(--spacing-sm);
+            }
         }
     </style>
 </head>
@@ -431,13 +580,55 @@
                 <div class="header-right">
                     <div class="wallet">
                         <span class="wallet-label">Balanca:</span>
-                        <span class="wallet-amount">€ 245.50</span>
+                        <span class="wallet-amount" id="balance">€ 0.00</span>
                     </div>
-                    <button class="btn btn-primary">+ Depozito</button>
+                    <button class="btn btn-primary" onclick="openDepositModal()">+ Depozito</button>
                 </div>
             </div>
         </div>
     </header>
+
+    <!-- ===== DEPOSIT MODAL ===== -->
+    <div class="modal" id="depositModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Depozito Fonde</h2>
+                <button class="modal-close" onclick="closeDepositModal()">✕</button>
+            </div>
+
+            <div id="depositAlert"></div>
+
+            <form id="depositForm">
+                <div class="form-group">
+                    <label class="form-label">Shuma (€)</label>
+                    <input type="number" class="form-input" id="amount" placeholder="Shembull: 50" min="1" step="0.01" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Kartelë Krediti</label>
+                    <div id="card-element"></div>
+                </div>
+
+                <button type="submit" class="btn btn-success" style="width: 100%;">Depozito €<span id="amountDisplay">0</span></button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===== PURCHASE MODAL ===== -->
+    <div class="modal" id="purchaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="purchaseTitle">Bli Produkt</h2>
+                <button class="modal-close" onclick="closePurchaseModal()">✕</button>
+            </div>
+
+            <div id="purchaseAlert"></div>
+
+            <div id="purchaseDetails"></div>
+
+            <button class="btn btn-success" id="confirmPurchaseBtn" style="width: 100%; margin-top: var(--spacing-md);">Konfirmo Blerjen</button>
+        </div>
+    </div>
 
     <!-- ===== HERO ===== -->
     <section class="section hero">
@@ -445,8 +636,8 @@
             <h1>Tregu Modern për Produktet & Shërbime</h1>
             <p>Bli produkte fizike, shërbime profesionale dhe menaxho fondet e tua në një platformë të sigurt dhe të shpejtë.</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary">Shiko Produktet</button>
-                <button class="btn btn-ghost">Mëso më Shumë</button>
+                <button class="btn btn-primary" onclick="document.getElementById('produktet').scrollIntoView()">Shiko Produktet</button>
+                <button class="btn btn-ghost" onclick="alert('Mëso më shumë: Polyshop është një marketplace i sigurt për blerjet online')">Mëso më Shumë</button>
             </div>
         </div>
     </section>
@@ -464,38 +655,50 @@
             <div class="grid grid-3">
                 <div class="card">
                     <div class="card-icon">📱</div>
-                    <h3>Elektronikë</h3>
-                    <p>Telefona, laptopë, tabletë dhe aksesorë teknologjikë me garanci.</p>
+                    <h3>iPhone 15 Pro Max</h3>
+                    <p>Telefon i ri me procesor A17 Pro, 256GB hapësirë. Cilësi e lartë garantuar.</p>
+                    <div class="card-price">€ 899</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('iPhone 15 Pro Max', 899)">Bli Tani</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">👕</div>
-                    <h3>Modë & Aksesorë</h3>
-                    <p>Rroba dizajner, këpucë premium dhe aksesorë të modshmeve.</p>
+                    <h3>Koleksioni Premium Branding</h3>
+                    <p>Rroba dizajner me cilësi ekstra. Stilet më të reja për sezonin e ardhshëm.</p>
+                    <div class="card-price">€ 120</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Koleksioni Premium Branding', 120)">Bli Tani</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">🎮</div>
-                    <h3>Gaming & Pajisje</h3>
-                    <p>Konsola, headphone, mouse dhe tastierë për gamere profesional.</p>
+                    <h3>PlayStation 5 Pro Bundle</h3>
+                    <p>PS5 Pro me 2 kontroller, PS Plus 1 vit, dhe 3 lojra AAA të reja.</p>
+                    <div class="card-price">€ 699</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('PlayStation 5 Pro Bundle', 699)">Bli Tani</button>
                 </div>
 
                 <div class="card">
-                    <div class="card-icon">⌚</div>
-                    <h3>Wearables & Pajisje</h3>
-                    <p>Smartwatch, fitnessbanda dhe pajisje të zgjuara për shëndeti.</p>
+                    <div class="card-icon">💻</div>
+                    <h3>Laptop Gaming ASUS ROG</h3>
+                    <p>RTX 4090, Intel i9, 32GB RAM. Performa maksimale për gaming dhe rendering 3D.</p>
+                    <div class="card-price">€ 2,450</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Laptop Gaming ASUS ROG', 2450)">Bli Tani</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">🎧</div>
-                    <h3>Audio Premium</h3>
-                    <p>Headphone wireless, altapaçe dhe sisteme audio profesional.</p>
+                    <h3>Headphones Wireless Premium</h3>
+                    <p>Zëri 360°, anulim zhurme, bateria 40 orë. Garuancia 2-vjeçare.</p>
+                    <div class="card-price">€ 280</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Headphones Wireless Premium', 280)">Bli Tani</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">📷</div>
-                    <h3>Fotografi & Video</h3>
-                    <p>Kamerat, drone-të, lente dhe aksesore për fotografë profesional.</p>
+                    <h3>Smartwatch Ultra Series</h3>
+                    <p>GPS, monitorim shëndetit, 7 ditë bateria. Waterproof deri në 100m.</p>
+                    <div class="card-price">€ 350</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Smartwatch Ultra Series', 350)">Bli Tani</button>
                 </div>
             </div>
         </div>
@@ -516,36 +719,48 @@
                     <div class="card-icon">💻</div>
                     <h3>Zhvillim Web</h3>
                     <p>Faqe interneti responsive, aplikacione web dhe kode optimizime SEO.</p>
+                    <div class="card-price">€ 450</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Zhvillim Web', 450)">Porosi</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">🎨</div>
                     <h3>Dizajn Grafik</h3>
                     <p>Logo, branding, poster, dizajn për social media dhe materiale marketingu.</p>
+                    <div class="card-price">€ 180</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Dizajn Grafik', 180)">Porosi</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">📈</div>
                     <h3>Marketing Dixhital</h3>
                     <p>Strategi marketing, reklama në social media dhe optimizimi për kërkesat.</p>
+                    <div class="card-price">€ 320</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Marketing Dixhital', 320)">Porosi</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">🎬</div>
                     <h3>Video Editing</h3>
                     <p>Montim video profesional për YouTube, TikTok, Instagram dhe reklama.</p>
+                    <div class="card-price">€ 220</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Video Editing', 220)">Porosi</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">✍️</div>
-                    <h3>Redaktim & Kopim</h3>
+                    <h3>Redaktim & Korrekturë</h3>
                     <p>Redaktim tekstesh, korrekturë dhe shërbim korrespodence profesionale.</p>
+                    <div class="card-price">€ 45</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Redaktim & Korrekturë', 45)">Porosi</button>
                 </div>
 
                 <div class="card">
                     <div class="card-icon">🌐</div>
                     <h3>Kurse Online</h3>
                     <p>Kurse programimi, dizajni, marketingu me sertifikat të vlefshmë.</p>
+                    <div class="card-price">€ 99</div>
+                    <button class="btn btn-primary card-button" onclick="openPurchaseModal('Kurse Online', 99)">Porosi</button>
                 </div>
             </div>
         </div>
@@ -557,9 +772,9 @@
     <section class="section" id="depozita">
         <div class="container">
             <div class="cta">
-                <h2>Depozito Fonde</h2>
-                <p>Shto fonde në llogarinë tënde Polyshop dhe fillo të blesh produktet dhe shërbime që të duhen.</p>
-                <button class="btn btn-primary">Depozito Tani</button>
+                <h2>Depozito Fonde & Fillo të Blesh</h2>
+                <p>Shto fonde në llogarinë tënde Polyshop përmes kartelës krediti dhe fillo të blesh produktet dhe shërbime që të duhen.</p>
+                <button class="btn btn-primary" onclick="openDepositModal()">Depozito Tani</button>
             </div>
         </div>
     </section>
@@ -569,9 +784,173 @@
     <!-- ===== FOOTER ===== -->
     <footer>
         <div class="container">
-            <p>© 2026 Polyshop. Të gjitha të drejtat e rezervuara.</p>
+            <p>© 2026 Polyshop. Të gjitha të drejtat e rezervuara. | 🔒 Powered by Stripe</p>
         </div>
     </footer>
+
+    <script>
+        // Initialize Stripe
+        const stripe = Stripe('pk_test_YOUR_STRIPE_KEY_HERE'); // Replace with your actual Stripe key
+        const elements = stripe.elements();
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    color: '#ffffff',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
+                    fontSize: '16px',
+                    backgroundColor: '#1f2937',
+                },
+                invalid: {
+                    color: '#ef4444',
+                }
+            }
+        });
+
+        cardElement.mount('#card-element');
+
+        // Update balance from localStorage
+        function updateBalance() {
+            const balance = parseFloat(localStorage.getItem('polyshop_balance')) || 0;
+            document.getElementById('balance').textContent = '€ ' + balance.toFixed(2);
+        }
+
+        // Modal functions
+        function openDepositModal() {
+            document.getElementById('depositModal').classList.add('active');
+        }
+
+        function closeDepositModal() {
+            document.getElementById('depositModal').classList.remove('active');
+            document.getElementById('depositForm').reset();
+            document.getElementById('depositAlert').innerHTML = '';
+        }
+
+        function openPurchaseModal(name, price) {
+            const balance = parseFloat(localStorage.getItem('polyshop_balance')) || 0;
+            
+            let alertHTML = '';
+            if (balance < price) {
+                alertHTML = `<div class="alert alert-error">Balanca juaj nuk është e mjaftueshme. Ju duhen €${(price - balance).toFixed(2)} më shumë.</div>`;
+            }
+
+            document.getElementById('purchaseTitle').textContent = name;
+            document.getElementById('purchaseDetails').innerHTML = `
+                <div style="background: var(--bg-tertiary); padding: var(--spacing-md); border-radius: var(--radius-lg); margin-bottom: var(--spacing-md);">
+                    <p style="margin: 0 0 var(--spacing-sm); color: var(--text-muted); font-size: 14px;">Produkti</p>
+                    <h3 style="margin: 0 0 var(--spacing-sm);">${name}</h3>
+                    <p style="margin: 0 0 var(--spacing-xs); color: var(--text-muted); font-size: 14px;">Çmim</p>
+                    <p style="margin: 0; color: var(--color-success); font-size: 24px; font-weight: 700;">€ ${price.toFixed(2)}</p>
+                </div>
+                <div style="background: var(--bg-tertiary); padding: var(--spacing-md); border-radius: var(--radius-lg);">
+                    <p style="margin: 0 0 var(--spacing-xs); color: var(--text-muted); font-size: 14px;">Balanca juaj</p>
+                    <p style="margin: 0; color: var(--color-success); font-size: 20px; font-weight: 700;">€ ${balance.toFixed(2)}</p>
+                </div>
+            `;
+
+            document.getElementById('purchaseAlert').innerHTML = alertHTML;
+            document.getElementById('confirmPurchaseBtn').disabled = balance < price;
+
+            // Store current purchase
+            window.currentPurchase = { name, price };
+
+            document.getElementById('purchaseModal').classList.add('active');
+        }
+
+        function closePurchaseModal() {
+            document.getElementById('purchaseModal').classList.remove('active');
+            window.currentPurchase = null;
+        }
+
+        // Deposit form
+        document.getElementById('depositForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const amount = parseFloat(document.getElementById('amount').value);
+            const alertDiv = document.getElementById('depositAlert');
+
+            if (!amount || amount <= 0) {
+                alertDiv.innerHTML = '<div class="alert alert-error">Shuma duhet të jetë më shumë se 0</div>';
+                return;
+            }
+
+            const button = e.target.querySelector('button');
+            button.disabled = true;
+
+            try {
+                // Create payment method
+                const { error, paymentMethod } = await stripe.createPaymentMethod({
+                    type: 'card',
+                    card: cardElement,
+                });
+
+                if (error) {
+                    alertDiv.innerHTML = `<div class="alert alert-error">Gabim: ${error.message}</div>`;
+                    button.disabled = false;
+                    return;
+                }
+
+                // In a real application, you would send this to your backend
+                // For now, we'll simulate a successful payment
+                const currentBalance = parseFloat(localStorage.getItem('polyshop_balance')) || 0;
+                const newBalance = currentBalance + amount;
+
+                localStorage.setItem('polyshop_balance', newBalance.toString());
+                updateBalance();
+
+                alertDiv.innerHTML = `<div class="alert alert-success">✓ Depozito i suksesshëm! €${amount.toFixed(2)} u shtua në llogarinë tuaj.</div>`;
+
+                setTimeout(() => {
+                    closeDepositModal();
+                }, 2000);
+
+            } catch (error) {
+                alertDiv.innerHTML = `<div class="alert alert-error">Gabim: ${error.message}</div>`;
+                button.disabled = false;
+            }
+        });
+
+        // Confirm purchase
+        document.getElementById('confirmPurchaseBtn').addEventListener('click', () => {
+            if (!window.currentPurchase) return;
+
+            const balance = parseFloat(localStorage.getItem('polyshop_balance')) || 0;
+            const { name, price } = window.currentPurchase;
+
+            if (balance < price) {
+                alert('Balanca e pamjaftueshme!');
+                return;
+            }
+
+            const newBalance = balance - price;
+            localStorage.setItem('polyshop_balance', newBalance.toString());
+            updateBalance();
+
+            document.getElementById('purchaseAlert').innerHTML = `
+                <div class="alert alert-success">
+                    ✓ Blerja e suksesshme! ${name} - €${price.toFixed(2)}<br>
+                    <small>Balanca e re: €${newBalance.toFixed(2)}</small>
+                </div>
+            `;
+
+            setTimeout(() => {
+                closePurchaseModal();
+            }, 2500);
+        });
+
+        // Update amount display
+        document.getElementById('amount').addEventListener('input', (e) => {
+            document.getElementById('amountDisplay').textContent = e.target.value || '0';
+        });
+
+        // Close modals on outside click
+        document.addEventListener('click', (e) => {
+            if (e.target.id === 'depositModal') closeDepositModal();
+            if (e.target.id === 'purchaseModal') closePurchaseModal();
+        });
+
+        // Initialize
+        updateBalance();
+    </script>
 
 </body>
 </html>

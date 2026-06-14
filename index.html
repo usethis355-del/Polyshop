@@ -483,11 +483,19 @@
             box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
         }
 
+        /* ===== STRIPE CARD ELEMENT ===== */
         #card-element {
             padding: var(--spacing-sm);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-md);
-            background: var(--bg-tertiary);
+            background: #ffffff;
+            min-height: 50px;
+            transition: border-color 0.2s ease;
+        }
+
+        #card-element.StripeElement--focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.1);
         }
 
         /* ===== ALERT ===== */
@@ -795,13 +803,18 @@
         const cardElement = elements.create('card', {
             style: {
                 base: {
-                    color: '#ffffff',
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto',
+                    color: '#000000',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
                     fontSize: '16px',
-                    backgroundColor: '#1f2937',
+                    fontSmoothing: 'antialiased',
+                    backgroundColor: '#ffffff',
+                    '::placeholder': {
+                        color: '#999999',
+                    },
                 },
                 invalid: {
                     color: '#ef4444',
+                    iconColor: '#ef4444',
                 }
             }
         });
